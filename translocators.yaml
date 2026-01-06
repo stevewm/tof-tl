@@ -201,3 +201,111 @@
     y: 1
     z: 3619
   color: ""
+
+- name: bmc TL 1
+  desc: ""
+  origin:
+    x: 2958
+    y: 100
+    z: -1064
+  destination:
+    x: -1322
+    y: 100
+    z: 4449
+  color: green
+
+- name: bmc TL 2
+  desc: ""
+  origin:
+    x: -1314
+    y: 100
+    z: 4473
+  destination:
+    x: 3125
+    y: 100
+    z: 10256
+  color: green
+
+- name: bmc TL 3
+  desc: ""
+  origin:
+    x: 3101
+    y: 100
+    z: 10236
+  destination:
+    x: 388
+    y: 100
+    z: 13246
+  color: green
+
+- name: bmc TL 4
+  desc: ""
+  origin:
+    x: 3096
+    y: 100
+    z: 10224
+  destination:
+    x: -2135
+    y: 100
+    z: 11970
+  color: green
+
+- name: bmc TL 5
+  desc: ""
+  origin:
+    x: 392
+    y: 100
+    z: 13185
+  destination:
+    x: -2629
+    y: 100
+    z: 16834
+  color: green
+
+- name: bmc TL 6
+  desc: ""
+  origin:
+    x: 395
+    y: 100
+    z: 13179
+  destination:
+    x: -6652
+    y: 100
+    z: 17690
+  color: green
+
+- name: bmc TL 7
+  desc: ""
+  origin:
+    x: -2305
+    y: 100
+    z: 18037
+  destination:
+    x: 3788
+    y: 100
+    z: 16673
+  color: ""
+
+- name: bmc TL 8
+  desc: ""
+  origin:
+    x: 3725
+    y: 100
+    z: 16220
+  destination:
+    x: 4508
+    y: 100
+    z: 13496
+  color: ""
+
+- name: bmc TL 9
+  desc: ""
+  origin:
+    x: 3490
+    y: 100
+    z: 16234
+  destination:
+    x: 7447
+    y: 100
+    z: 9822
+  color: ""

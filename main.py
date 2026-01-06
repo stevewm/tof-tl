@@ -95,14 +95,20 @@ fig.update_layout(
     paper_bgcolor="#111",
     plot_bgcolor="#111",
     dragmode='pan',
+    autosize=True,
     hovermode='closest',
     hoverdistance=50,
     margin=dict(l=0, r=0, t=0, b=0),
-    xaxis=dict(showgrid=True, gridcolor='#222', scaleanchor="y", scaleratio=1, constrain="domain"),
-    yaxis=dict(showgrid=True, gridcolor='#222', autorange="reversed"),
+    xaxis=dict(showgrid=True, gridcolor='#222'), 
+    yaxis=dict(showgrid=True, gridcolor='#222', autorange="reversed", scaleanchor="x", scaleratio=1),
     showlegend=False,
-    height=None,
-    width=None,
 )
 
-fig.write_html("index.html")
+fig.write_html(
+    "index.html",
+    include_plotlyjs='cdn',
+    full_html=True,
+    default_width='100%',
+    default_height='100%',
+    config={'responsive': True}
+)
