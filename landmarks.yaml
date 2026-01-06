@@ -1,0 +1,146 @@
+- name: Bear Island
+  desc: stevewm's base
+  location: 
+    x: -3100
+    y: 140
+    z: 4350
+
+- name: R3D4CT3D's Base
+  location:
+    x: -2720
+    y: 120
+    z: 5483
+
+- name: Pyrite Town
+  location:
+    x: -3700
+    y: 100
+    z: 3275
+
+- name: Plymouth
+  location:
+    x: 20
+    y: 100
+    z: 1030
+
+- name: Orckish Forges
+  location:
+    x: -570
+    y: 80
+    z: 3766
+
+- name: Port of New Hope
+  location:
+    x: -2927
+    y: 118
+    z: 1774
+
+- name: Stormbreak Keep
+  location:
+    x: 1820
+    y: 100
+    z: 7360
+
+- name: Glenhaven
+  location:
+    x: -580
+    y: 110
+    z: -636
+
+- name: Aldermere
+  location:
+    x: -1354
+    y: 117
+    z: -874
+
+- name: Sommerfrische
+  location:
+    x: -775
+    y: 112
+    z: 12806
+
+- name: Phoenix Inn
+  location:
+    x: -1183
+    y: 137
+    z: 2483
+
+- name: Selabrinth
+  location: 
+    x: 4400
+    y: 100
+    z: 13775
+
+- name: Alefang Monastery
+  location:
+    x: -373
+    y: 186
+    z: 2122
+
+- name: Forglake
+  location:
+    x: 3150
+    y: 100
+    z: 3798
+
+# Co-ords not listed in thread
+# - name: Copper Marsh
+#   location:
+#     x: 0
+#     y: 0
+#     z: 0
+
+- name: Scholar's Landing
+  location:
+    x: 4484
+    y: 113
+    z: 24866
+
+# Co-ords not listed in thread
+# - name: The Ark
+#   location:
+#     x: 0
+#     y: 0
+#     z: 0
+
+- name: Sunflower Land
+  location:
+    x: 3750
+    y: 124
+    z: 16650
+
+- name: Lantern Reef
+  location:
+    x: 5300
+    y: 100
+    z: 23500
+
+- name: Skipper's Rest
+  location:
+    x: 2400
+    y: 100
+    z: 1500
+
+- name: Isla Argilita
+  location:
+    x: -900
+    y: 100
+    z: 1400
+
+- name: Oango Isles
+  location:
+    x: -875
+    y: 100
+    z: 2100
+
+- name: Sea Breeze
+  location:
+    x: 2491
+    y: 100
+    z: -1063
+
+- name: The Coven
+  location:
+    x: 375
+    y: 112
+    z: 3931

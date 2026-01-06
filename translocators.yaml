@@ -1,0 +1,203 @@
+- name: Bear Island Tower
+  desc: Located in the wooden watchtower
+  origin: 
+    x: -3132
+    y: 140
+    z: 4405
+  destination:
+    x: -2542
+    y: 126
+    z: 5320
+  color: blue
+
+- name: Bear Island Tower 2
+  desc: Linked to the Bear Island Tower translocator via a tunnel
+  origin:
+    x: -2454
+    y: 33
+    z: 5317
+  destination:
+    x: 1413
+    y: 72
+    z: 10238
+  color: blue
+
+- name: Bear Island Cave
+  desc: ""
+  origin:
+    x: -3224
+    y: 114
+    z: 4283
+  destination:
+    x: -6173
+    y: 90
+    z: -2477
+  color: orange
+
+- name: Bear Island Cave 2
+  desc: Destination is under the ocean
+  origin:
+    x: -6119
+    y: 81
+    z: -2500
+  destination:
+    x: -12737
+    y: 51
+    z: 2079
+  color: orange
+
+- name: Plymouth TL 1
+  desc:
+  origin:
+    x: 33
+    y: 114
+    z: 1221
+  destination:
+    x: 7050
+    y: 17
+    z: -6740
+  color: red
+
+- name: Plymouth TL 2
+  desc:
+  origin:
+    x: 15
+    y: 64
+    z: 1193
+  destination:
+    x: -3179
+    y: 47
+    z: 5490
+  color: red
+
+- name: Plymouth TL 3
+  desc:
+  origin:
+    x: -126
+    y: 102
+    z: 1238
+  destination:
+    x: -4556
+    y: 52
+    z: 3863
+  color: ""
+
+- name: Plymouth TL 6
+  desc:
+  origin:
+    x: 41
+    y: 95
+    z: 1547
+  destination:
+    x: 5666
+    y: 33
+    z: 11
+  color: ""
+
+- name: Choopsie TL 1
+  desc:
+  origin:
+    x: 182
+    y: 1
+    z: 2813
+  destination:
+    x: 10673
+    y: 1
+    z: 14661
+  color: ""
+
+- name: Cap TL 1
+  desc:
+  origin:
+    x: -997
+    y: 129
+    z: 2420
+  destination:
+    x: -5237
+    y: 29
+    z: -314
+  color: purple
+
+- name: Cap TL 2
+  desc:
+  origin:
+    x: -5241
+    y: 99
+    z: -186
+  destination:
+    x: -10814
+    y: 40
+    z: 1692
+  color: purple
+
+- name: Aldermere TL 1
+  desc:
+  origin:
+    x: -1457
+    y: 114
+    z: -1137
+  destination:
+    x: -6966
+    y: 1
+    z: 1862
+  color: ""
+
+- name: Me-mow TL 1
+  desc:
+  origin:
+    x: -263
+    y: 1
+    z: 2290
+  destination:
+    x: 1116
+    y: 1
+    z: 7522
+  color: ""
+
+- name: Me-mow TL 2
+  desc:
+  origin:
+    x: -3216
+    y: 1
+    z: 3098
+  destination:
+    x: 1127
+    y: 183
+    z: 7098
+  color: teal
+
+- name: Me-mow TL 3
+  desc:
+  origin:
+    x: 1166
+    y: 189
+    z: 7096
+  destination:
+    x: 5404
+    y: 1
+    z: 14725
+  color: teal
+
+- name: Ergiler TL 1
+  desc:
+  origin:
+    x: -1780
+    y: 1
+    z: 28730
+  destination:
+    x: -7078
+    y: 1
+    z: 33681
+  color: ""
+
+- name: Carthasis TL 1
+  desc:
+  origin:
+    x: -1543
+    y: 1
+    z: -2361
+  destination:
+    x: -86
+    y: 1
+    z: 3619
+  color: ""
