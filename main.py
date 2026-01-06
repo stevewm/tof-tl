@@ -49,6 +49,7 @@ tls, lms = load_data()
 fig = go.Figure()
 dark_hover = dict(bgcolor="#1e1e1e", bordercolor="#555", font=dict(family="monospace", color="#e0e0e0"))
 
+# Translocators
 for tl in tls:
     fig.add_trace(go.Scatter(
         x=[tl.origin.x, tl.destination.x], 
@@ -73,6 +74,7 @@ for tl in tls:
         legendgroup=tl.name
     ))
 
+# Landmarks
 for lm in lms:
     fig.add_trace(go.Scatter(
         x=[lm.location.x], y=[lm.location.z],
