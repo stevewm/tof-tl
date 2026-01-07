@@ -309,3 +309,171 @@
     y: 100
     z: 9822
   color: ""
+
+- name: bmc TL 10
+  desc: ""
+  origin:
+    x: 2905
+    y: 100
+    z: -1028
+  destination:
+    x: 10641
+    y: 100
+    z: -6543
+  color: ""
+
+- name: bmc TL 11
+  desc: ""
+  origin:
+    x: 10620
+    y: 100
+    z: -6527
+  destination:
+    x: 15624
+    y: 100
+    z: -10575
+  color: ""
+
+- name: bmc TL 12
+  desc: ""
+  origin:
+    x: 15632
+    y: 100
+    z: -10543
+  destination:
+    x: 19579
+    y: 100
+    z: -3098
+  color: ""
+
+- name: bmc TL 13
+  desc: ""
+  origin:
+    x: 19587
+    y: 100
+    z: -3111
+  destination:
+    x: 20948
+    y: 100
+    z: -3773
+  color: ""
+
+- name: bmc TL 14
+  desc: ""
+  origin:
+    x: 21009
+    y: 100
+    z: -3768
+  destination:
+    x: 26602
+    y: 100
+    z: -9977
+  color: ""
+
+- name: bmc TL 15
+  desc: ""
+  origin:
+    x: 26603
+    y: 100
+    z: -9966
+  destination:
+    x: 22906
+    y: 100
+    z: -6810
+  color: ""
+
+- name: bmc TL 16
+  desc: ""
+  origin:
+    x: 22913
+    y: 100
+    z: -6829
+  destination:
+    x: 22498
+    y: 100
+    z: -1835
+  color: ""
+
+- name: bmc TL 17
+  desc: ""
+  origin:
+    x: 22880
+    y: 100
+    z: -6851
+  destination:
+    x: 24184
+    y: 100
+    z: -5610
+  color: ""
+
+- name: bmc TL 18
+  desc: ""
+  origin:
+    x: 2988
+    y: 100
+    z: -1080
+  destination:
+    x: 6597
+    y: 100
+    z: 884
+  color: ""
+
+- name: bmc TL 19
+  desc: ""
+  origin:
+    x: 2981
+    y: 100
+    z: -1096
+  destination:
+    x: 9255
+    y: 100
+    z: 2482
+  color: ""
+
+- name: bmc TL 20
+  desc: ""
+  origin:
+    x: 7068
+    y: 100
+    z: -6753
+  destination:
+    x: 11071
+    y: 100
+    z: -3638
+  color: ""
+
+- name: Tournesol TL 1
+  desc:
+  origin:
+    x: 3561
+    y: 35
+    z: 16491
+  destination:
+    x: 5187
+    y: 92
+    z: 23384
+  color: ""
+
+- name: LR Southern
+  desc: ""
+  origin:
+    x: 5148
+    y: 100
+    z: 23594
+  destination:
+    x: 8507
+    y: 100
+    z: 30692
+  color: ""
+
+- name: LR Northern (Tournesol)
+  desc: ""
+  origin:
+    x: 5186
+    y: 100
+    z: 23384
+  destination:
+    x: 3562
+    y: 100
+    z: 16492
+  color: ""

@@ -81,7 +81,7 @@
   location:
     x: 3150
     y: 100
-    z: 3798
+    z: 37980
 
 # Co-ords not listed in thread
 # - name: Copper Marsh
@@ -92,9 +92,9 @@
 
 - name: Scholar's Landing
   location:
-    x: 4484
+    x: 10779
     y: 113
-    z: 24866
+    z: 10907
 
 # Co-ords not listed in thread
 # - name: The Ark
@@ -103,7 +103,7 @@
 #     y: 0
 #     z: 0
 
-- name: Sunflower Land
+- name: Tournesol
   location:
     x: 3750
     y: 124
