@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ToF Translocator Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+
+</head>
+<body>
+    <div id="toast">Command Copied!</div>
+
+    <div id="mouse-coords">X: 0, Z: 0</div>
+
+    <div id="main-search-container">
+        <div class="input-wrapper">
+            <input type="text" id="main-search" class="app-input" placeholder="Search locations..." autocomplete="off" />
+            <button id="main-clear" class="clear-btn">&times;</button>
+            <div id="main-results" class="results-list"></div>
+        </div>
+    </div>
+
+    <div id="sidebar">
+        <button id="close-sidebar">&times;</button>
+        
+        <div id="mode-info" class="content-area" style="display:none;">
+            <img id="info-img" class="hero-img" src="" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMzMzMiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzU1NSIgZm9udC1zaXplPSIyMCI+Tk8gSU1BR0U8L3RleHQ+PC9zdmc+'" />
+            <div style="padding: 10px; display: flex; flex-direction: column; height: 100%;">
+                <h1 id="info-name">Location</h1>
+                <div id="info-type" class="sub-text">Landmark</div>
+                <div class="info-card">
+                    <div class="card-label">Coordinates</div>
+                    <div class="card-value"><span id="info-coords">--</span><button id="btn-copy-main" class="icon-btn">📋</button></div>
+                </div>
+                <div id="tl-meta" style="display:none;">
+                    <div class="info-card">
+                        <div class="card-label">Linked To</div>
+                        <div class="card-value"><span id="tl-link-name">--</span><button id="btn-copy-link" class="icon-btn">📋</button></div>
+                    </div>
+                </div>
+                <button id="btn-nav" class="cta-btn">Navigate Here</button>
+            </div>
+        </div>
+
+        <div id="mode-nav" style="display:none; height:100%; flex-direction:column;">
+            <div class="nav-header">
+                <h3 style="margin:0 0 15px 0; color:#2ecc71;">Directions</h3>
+                <div class="input-wrapper" style="margin-bottom:10px;">
+                    <input id="nav-start" class="app-input" placeholder="Start Point..." autocomplete="off" />
+                    <button id="nav-clear" class="clear-btn">&times;</button>
+                    <div id="nav-results" class="results-list"></div>
+                </div>
+                <div style="margin-bottom:10px;">
+                    <input id="nav-end" class="app-input" readonly style="background:#222; color:#888;" />
+                </div>
+                <div class="slider-container">
+                    <div class="slider-label"><span>Max Walk Distance</span><span>blocks</span></div>
+                    <div class="slider-controls">
+                        <input type="range" id="walk-slider" min="50" max="5000" step="50" value="500" />
+                        <input type="number" id="walk-number" class="small-input" min="50" max="5000" step="50" value="500" />
+                    </div>
+                </div>
+            </div>
+            <ul id="step-list" class="steps-list"></ul>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        // --- 1. UTILS ---
+        class Autocomplete {
+            constructor(inputId, listId, clearBtnId, dataProvider, onSelect, onClear) {
+                this.input = document.getElementById(inputId);
+                this.list = document.getElementById(listId);
+                this.clearBtn = document.getElementById(clearBtnId);
+                this.dataProvider = dataProvider;
+                this.onSelect = onSelect;
+                this.selectedIndex = -1;
+
+                this.input.addEventListener('input', (e) => { this.handleInput(e); this.toggleClearBtn(); });
+                this.input.addEventListener('keydown', (e) => this.handleKey(e));
+                this.input.addEventListener('focus', (e) => this.handleInput(e));
+                
+                this.clearBtn.addEventListener('click', () => {
+                    this.input.value = '';
+                    this.toggleClearBtn();
+                    this.close();
+                    if(onClear) onClear();
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (e.target !== this.input && e.target !== this.list) this.close();
+                });
+            }
+
+            toggleClearBtn() {
+                if(this.input.value.length > 0) this.clearBtn.classList.add('has-text');
+                else this.clearBtn.classList.remove('has-text');
+            }
+
+            handleInput(e) {
+                const val = this.input.value.toLowerCase();
+                this.list.innerHTML = ''; this.selectedIndex = -1;
+                if (!val) { this.close(); return; }
+
+                const matches = this.dataProvider().filter(item => item.name.toLowerCase().includes(val)).slice(0, 10);
+                if (matches.length === 0) { this.close(); return; }
+
+                this.list.style.display = 'block';
+                matches.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item'; div.innerText = item.name;
+                    div.onclick = () => this.select(item); div.dataset.index = index;
+                    this.list.appendChild(div);
+                });
+            }
+
+            handleKey(e) {
+                if (this.list.style.display === 'none') return;
+                const items = this.list.querySelectorAll('.result-item');
+                if (e.key === 'ArrowDown') { this.selectedIndex = (this.selectedIndex + 1) % items.length; this.highlight(items); e.preventDefault(); } 
+                else if (e.key === 'ArrowUp') { this.selectedIndex = (this.selectedIndex - 1 + items.length) % items.length; this.highlight(items); e.preventDefault(); } 
+                else if (e.key === 'Enter') { if (this.selectedIndex >= 0) { items[this.selectedIndex].click(); e.preventDefault(); } }
+            }
+
+            highlight(items) {
+                items.forEach(i => i.classList.remove('active'));
+                if (items[this.selectedIndex]) { items[this.selectedIndex].classList.add('active'); items[this.selectedIndex].scrollIntoView({ block: 'nearest' }); }
+            }
+
+            select(item) { this.input.value = item.name; this.toggleClearBtn(); this.close(); this.onSelect(item); }
+            close() { this.list.style.display = 'none'; }
+        }
+
+        // --- 2. GRAPH ---
+        class GraphEngine {
+            constructor() { this.nodes = new Map(); this.staticAdjacency = new Map(); }
+            addNode(data) { this.nodes.set(data.name, data); if (!this.staticAdjacency.has(data.name)) this.staticAdjacency.set(data.name, []); }
+            removeNode(name) { this.nodes.delete(name); }
+            addStaticEdge(u, v) { this.staticAdjacency.get(u).push({ node: v, weight: 0.1 }); this.staticAdjacency.get(v).push({ node: u, weight: 0.1 }); }
+            
+            findPath(startName, endName, maxWalk) {
+                if (!this.nodes.has(startName) || !this.nodes.has(endName)) return null;
+                let dist = new Map(), prev = new Map(), pq = new Set();
+                
+                for (let [name, node] of this.nodes) {
+                    if (node.type === 'translocator' || name === startName || name === endName) { pq.add(name); dist.set(name, Infinity); }
+                }
+                dist.set(startName, 0);
+
+                while (pq.size > 0) {
+                    let u = null;
+                    for (let c of pq) { if (u === null || dist.get(c) < dist.get(u)) u = c; }
+                    if (u === endName || dist.get(u) === Infinity) break;
+                    pq.delete(u);
+
+                    let neighbors = (this.staticAdjacency.get(u) || []).slice();
+                    const uNode = this.nodes.get(u);
+                    
+                    if (u === startName || uNode.type === 'translocator') {
+                        for (let [name, node] of this.nodes) {
+                            if (node.type === 'translocator' && name !== u) {
+                                const d = this.getDist(u, name);
+                                if (d <= maxWalk) neighbors.push({ node: name, weight: d });
+                            }
+                        }
+                    }
+                    const dEnd = this.getDist(u, endName);
+                    if (dEnd <= maxWalk) neighbors.push({ node: endName, weight: dEnd });
+
+                    neighbors.forEach(e => {
+                        let alt = dist.get(u) + e.weight;
+                        if (alt < (dist.get(e.node) || Infinity)) { dist.set(e.node, alt); prev.set(e.node, u); }
+                    });
+                }
+                let path = [], curr = endName;
+                if (!prev.has(curr) && startName !== endName) return null;
+                while (curr) { path.unshift(curr); curr = prev.get(curr); }
+                return path;
+            }
+            getDist(n1, n2) {
+                const a = this.nodes.get(n1), b = this.nodes.get(n2);
+                return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.z - b.z, 2));
+            }
+        }
+
+        // --- 3. APP ---
+        class App {
+            constructor() {
+                this.map = L.map('map', { 
+                    crs: L.CRS.Simple, minZoom: -5, maxZoom: 1, 
+                    zoomControl: false, 
+                    renderer: L.canvas({ padding: 0.5 }) 
+                });
+                
+                L.control.zoom({ position: 'topright' }).addTo(this.map);
+
+                this.graph = new GraphEngine();
+                this.staticLayer = new L.LayerGroup().addTo(this.map);
+                this.routeLayer = new L.LayerGroup().addTo(this.map);
+                this.tempLayer = new L.LayerGroup().addTo(this.map); 
+                
+                this.svgRenderer = L.svg(); 
+                this.searchIndex = [];
+                this.navStart = null; this.navEnd = null; this.currentSel = null;
+                this.tempNode = null;
+
+                // Handle Empty Clicks
+                this.map.on('click', (e) => this.handleMapClick(e));
+                
+                // Mouse Coords
+                this.coordBox = document.getElementById('mouse-coords');
+                this.map.on('mousemove', (e) => {
+                    this.coordBox.innerText = `X: ${Math.round(e.latlng.lng)}, Z: ${Math.round(-e.latlng.lat)}`;
+                });
+
+                this.initUI();
+            }
+
+            initUI() {
+                this.sidebar = document.getElementById('sidebar');
+                this.uiInfo = document.getElementById('mode-info');
+                this.uiNav = document.getElementById('mode-nav');
+
+                new Autocomplete('main-search', 'main-results', 'main-clear', 
+                    () => this.searchIndex, (item) => this.selectLocation(item));
+
+                new Autocomplete('nav-start', 'nav-results', 'nav-clear',
+                    () => this.searchIndex, 
+                    (item) => { this.navStart = item; this.calcRoute(); },
+                    () => { 
+                        this.navStart = null; 
+                        this.routeLayer.clearLayers(); 
+                        document.getElementById('nav-start').focus(); 
+                    }
+                );
+
+                document.getElementById('close-sidebar').onclick = () => this.toggleSidebar(false);
+                document.getElementById('btn-nav').onclick = () => this.startNavFlow();
+                document.getElementById('btn-copy-main').onclick = () => this.copyCmd(this.currentSel);
+                document.getElementById('btn-copy-link').onclick = () => {
+                    const node = this.graph.nodes.get(document.getElementById('tl-link-name').innerText);
+                    if(node) this.copyCmd(node);
+                };
+
+                const slider = document.getElementById('walk-slider');
+                const number = document.getElementById('walk-number');
+                const sync = (val) => { slider.value = val; number.value = val; this.calcRoute(); };
+                slider.oninput = (e) => sync(e.target.value);
+                number.oninput = (e) => sync(e.target.value);
+            }
+
+            async loadData(lUrl, tUrl) {
+                try {
+                    const [lRes, tRes] = await Promise.all([fetch(lUrl), fetch(tUrl)]);
+                    const landmarks = jsyaml.load(await lRes.text());
+                    const tls = jsyaml.load(await tRes.text());
+                    const bounds = L.latLngBounds([]);
+
+                    landmarks.forEach(lm => {
+                        const node = { ...lm, x: lm.location.x, y: lm.location.y, z: lm.location.z, type: 'landmark' };
+                        this.graph.addNode(node); this.searchIndex.push(node);
+                        this.renderMarker(node); bounds.extend([-node.z, node.x]);
+                    });
+
+                    tls.forEach(tl => {
+                        const oName = `${tl.name} Origin`; const dName = `${tl.name} Dest`;
+                        const orig = { name: oName, ...tl.origin, type: 'translocator', pair: dName, group: tl.name };
+                        const dest = { name: dName, ...tl.destination, type: 'translocator', pair: oName, group: tl.name };
+                        this.graph.addNode(orig); this.graph.addNode(dest); this.graph.addStaticEdge(oName, dName);
+                        this.renderTL(orig, dest, tl.color || 'cyan');
+                        bounds.extend([-orig.z, orig.x]); bounds.extend([-dest.z, dest.x]);
+                    });
+
+                    if (this.searchIndex.length) this.map.fitBounds(bounds, { padding: [50, 50] });
+                } catch (err) { console.error("Load failed:", err); }
+            }
+
+            handleMapClick(e) {
+                if(this.tempNode) {
+                    this.graph.removeNode(this.tempNode.name);
+                    this.tempLayer.clearLayers();
+                }
+
+                const x = Math.round(e.latlng.lng);
+                const z = Math.round(-e.latlng.lat);
+                
+                this.tempNode = {
+                    name: "Custom Destination",
+                    x: x, y: 64, z: z, 
+                    type: 'temp'
+                };
+
+                this.graph.addNode(this.tempNode);
+
+                const icon = L.divIcon({ className: '', html: '<div class="temp-icon"></div>', iconSize: [14, 14] });
+                const marker = L.marker(e.latlng, { icon }).addTo(this.tempLayer);
+                
+                marker.bindTooltip(`<b>Custom Destination</b><br>${x}, 64, ${z}`, { direction: 'top', offset: [0, -10] }).openTooltip();
+
+                marker.on('click', (ev) => {
+                    L.DomEvent.stopPropagation(ev);
+                    this.selectLocation(this.tempNode);
+                });
+
+                this.currentSel = this.tempNode;
+                this.toggleSidebar(true);
+                this.startNavFlow();
+            }
+
+            renderMarker(node) {
+                const pos = [-node.z, node.x];
+                L.circleMarker(pos, { radius: 15, opacity: 0, fillOpacity: 0 }).addTo(this.staticLayer)
+                 .bindTooltip(`<b>${node.name}</b><br>${node.x}, ${node.y}, ${node.z}`, { offset: [0, -10], direction: 'top' })
+                 .on('click', (e) => { L.DomEvent.stopPropagation(e); this.selectLocation(node); });
+                const icon = L.divIcon({ className: '', html: '<div class="diamond-icon"></div>', iconSize: [12, 12] });
+                L.marker(pos, { icon, interactive: false }).addTo(this.staticLayer);
+                L.marker(pos, { icon: L.divIcon({ className: 'label-icon', html: node.name, iconSize: [100, 20], iconAnchor: [50, -10] }), interactive: false }).addTo(this.staticLayer);
+            }
+
+            renderTL(n1, n2, color) {
+                const p1 = [-n1.z, n1.x]; const p2 = [-n2.z, n2.x];
+                const dist = Math.round(Math.sqrt(Math.pow(n1.x - n2.x, 2) + Math.pow(n1.z - n2.z, 2)));
+                L.polyline([p1, p2], { color: color, weight: 3, opacity: 0.8, interactive: false }).addTo(this.staticLayer);
+                L.polyline([p1, p2], { color: 'transparent', weight: 15, opacity: 0 }).addTo(this.staticLayer)
+                 .bindTooltip(`<b>${n1.group}</b><br>${dist} Blocks`, { sticky: true }).on('click', (e) => { L.DomEvent.stopPropagation(e); this.selectLocation(n1); });
+                [n1, n2].forEach(n => {
+                    L.circleMarker([-n.z, n.x], { radius: 5, color: '#fff', weight: 1.5, fillOpacity: 1, fillColor: color, interactive: false }).addTo(this.staticLayer);
+                    L.circleMarker([-n.z, n.x], { radius: 12, opacity: 0, fillOpacity: 0 }).addTo(this.staticLayer)
+                     .bindTooltip(`<b>${n.name}</b><br>${n.x}, ${n.y}, ${n.z}`, { offset: [0, -5], direction: 'top' })
+                     .on('click', (e) => { L.DomEvent.stopPropagation(e); this.selectLocation(n); });
+                });
+            }
+
+            selectLocation(node) {
+                this.currentSel = node; this.map.setView([-node.z, node.x], -1); this.toggleSidebar(true);
+                
+                if(node.type !== 'temp' && this.tempNode) {
+                    this.graph.removeNode(this.tempNode.name);
+                    this.tempLayer.clearLayers();
+                    this.tempNode = null;
+                }
+
+                document.getElementById('info-name').innerText = node.name;
+                document.getElementById('info-type').innerText = node.type === 'landmark' ? 'Landmark' : (node.type === 'temp' ? 'Temporary Waypoint' : 'Translocator');
+                document.getElementById('info-coords').innerText = `${node.x}, ${node.y}, ${node.z}`;
+                document.getElementById('info-img').src = node.type === 'landmark' ? `images/landmarks/${node.name}.png` : `images/translocator.png`;
+                const tlMeta = document.getElementById('tl-meta');
+                if (node.type === 'translocator') { tlMeta.style.display = 'block'; document.getElementById('tl-link-name').innerText = node.pair; } 
+                else { tlMeta.style.display = 'none'; }
+                this.uiInfo.style.display = 'flex'; this.uiNav.style.display = 'none';
+                this.routeLayer.clearLayers();
+            }
+
+            startNavFlow() {
+                this.uiInfo.style.display = 'none'; this.uiNav.style.display = 'flex';
+                this.navEnd = this.currentSel; document.getElementById('nav-end').value = this.navEnd.name;
+                if(this.navStart) { document.getElementById('nav-start').value = this.navStart.name; this.calcRoute(); }
+                else { document.getElementById('nav-start').focus(); document.getElementById('step-list').innerHTML = '<li style="padding:20px; text-align:center; color:#666;">Select a start point...</li>'; }
+            }
+
+            calcRoute() {
+                if (!this.navStart || !this.navEnd) return;
+                const maxWalk = parseInt(document.getElementById('walk-slider').value) || 500;
+                const path = this.graph.findPath(this.navStart.name, this.navEnd.name, maxWalk);
+                const list = document.getElementById('step-list');
+                this.routeLayer.clearLayers(); list.innerHTML = '';
+
+                if (!path) { list.innerHTML = `<li class="step"><div class="step-desc" style="color:#e74c3c">No route found.<br>Try increasing walk distance.</div></li>`; return; }
+
+                const latlngs = path.map(n => [-this.graph.nodes.get(n).z, this.graph.nodes.get(n).x]);
+                L.polyline(latlngs, { color: '#2ecc71', weight: 6, dashArray: '15, 15', className: 'anim-path', renderer: this.svgRenderer }).addTo(this.routeLayer);
+                this.map.fitBounds(L.latLngBounds(latlngs), { padding: [50, 50] });
+
+                [this.navStart, this.navEnd].forEach(node => {
+                    const pos = [-node.z, node.x];
+                    const bg = node.type === 'temp' ? '#e74c3c' : '#2ecc71';
+                    const icon = L.divIcon({ className: '', html: `<div class="diamond-icon" style="background:${bg}; border-color:#fff;"></div>`, iconSize: [12, 12] });
+                    L.marker(pos, { icon, interactive: false }).addTo(this.routeLayer);
+                });
+
+                for(let i=0; i<path.length-1; i++) {
+                    const curr = this.graph.nodes.get(path[i]), next = this.graph.nodes.get(path[i+1]);
+                    const dist = Math.round(this.graph.getDist(path[i], path[i+1]));
+                    let icon = '🏃', text = `Walk to <b>${next.name}</b>`, meta = `${dist} blocks`;
+                    const coords = `<span style="color:#aaa; font-size:11px;">(${next.x}, ${next.y}, ${next.z})</span>`;
+                    if (curr.group && curr.group === next.group) { icon = '🔮'; text = `Teleport to <b>${next.name}</b>`; meta = 'Instant'; }
+                    list.innerHTML += `<li class="step"><span class="step-icon">${icon}</span><div><div class="step-desc">${text}</div><span class="step-meta">${meta} &nbsp; ${coords}</span></div></li>`;
+                }
+                list.innerHTML += `<li class="step"><span class="step-icon">🏁</span><div class="step-desc">Arrive at Destination</div></li>`;
+            }
+
+            copyCmd(node) {
+                if(!node) return;
+                const type = node.type === 'landmark' ? 'home' : 'translocator';
+                const cmd = `/waypoint addati ${type} ${node.x} ${node.y} ${node.z} gold ${node.name}`;
+                navigator.clipboard.writeText(cmd).then(() => {
+                    const t = document.getElementById('toast'); t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2000);
+                });
+            }
+            toggleSidebar(show) {
+                if(show) { this.sidebar.classList.add('active'); document.body.classList.add('sidebar-open'); }
+                else { this.sidebar.classList.remove('active'); document.body.classList.remove('sidebar-open'); this.routeLayer.clearLayers(); }
+            }
+        }
+
+        const app = new App();
+        app.loadData('data/landmarks.yaml', 'data/translocators.yaml');
+    </script>
+</body>
+</html>
