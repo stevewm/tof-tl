@@ -442,6 +442,111 @@
     z: -3638
   color: ""
 
+- name: bmc TL 21
+  desc: ""
+  origin:
+    x: 4610
+    y: 30
+    z: 167
+  destination:
+    x: 3142
+    y: 22
+    z: -7187
+  color: "#0000B4"
+
+- name: bmc TL 22
+  desc: ""
+  origin:
+    x: 9460
+    y: 70
+    z: 2404
+  destination:
+    x: 4600
+    y: 24
+    z: 192
+  color: "#0000B4"
+
+- name: bmc TL 23
+  desc: ""
+  origin:
+    x: 4575
+    y: 40
+    z: 191
+  destination:
+    x: 7637
+    y: 24
+    z: -5176
+  color: "#0000B4"
+
+- name: bmc TL 24
+  desc: ""
+  origin:
+    x: 4603
+    y: 30
+    z: 163
+  destination:
+    x: 5182
+    y: 79
+    z: -3519
+  color: "#0000B4"
+
+- name: bmc TL 25
+  desc: ""
+  origin:
+    x: 9515
+    y: 12
+    z: 2390
+  destination:
+    x: 15603
+    y: 19
+    z: -4619
+  color: "#0000B4"
+
+- name: bmc TL 25
+  desc: ""
+  origin:
+    x: 9434
+    y: 65
+    z: 2304
+  destination:
+    x: 15447
+    y: 12
+    z: 5939
+  color: "#0000B4"
+
+- name: Akyrus TL 1
+  desc: ""
+  origin:
+    x: -787
+    y: -1
+    z: 1350
+  destination:
+    x: 1462
+    y: -1
+    z: -3862
+
+- name: Akyrus TL 2
+  desc: ""
+  origin:
+    x: -967
+    y: -1
+    z: 1356
+  destination:
+    x: 1648
+    y: -1
+    z: 7029
+
+- name: Akyrus TL 3
+  desc: ""
+  origin:
+    x: 1467
+    y: -1
+    z: -3835
+  destination:
+    x: 2247
+    y: -1
+    z: -3402
+
 - name: Tournesol TL 1
   desc:
   origin:
