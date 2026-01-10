@@ -477,3 +477,75 @@
     y: 100
     z: 16492
   color: ""
+
+- name: Moon 7C-D
+  desc: "D, near Pyrite Town, underwater, ladder down. C links to 7B."
+  origin:
+    x: 4608
+    y: 22
+    z: 1598
+  destination:
+    x: -2411
+    y: 30
+    z: 3306
+  color: ""
+  
+- name: Moon 7A-B
+  desc: "A, easy access from Plymouth, ladder down."
+  origin:
+    x: 7
+    y: 81
+    z: 1557
+  destination:
+    x: -4622
+    y: 21
+    z: 1580
+  color: ""
+  
+- name: Moon 5A-B
+  desc: "A, easy access from Plymouth, ladder down."
+  origin:
+    x: 25
+    y: 74
+    z: 1518
+  destination:
+    x: -3296
+    y: 68
+    z: 7142
+  color: ""
+  
+- name: Moon 4A-B
+  desc: "A, easy access from Plymouth, ladder down."
+  origin:
+    x: 11
+    y: 47
+    z: 1487
+  destination:
+    x: -4923
+    y: 23
+    z: 4098
+  color: ""
+  
+- name: Moon 3C-D
+  desc: "Ladder on both sides"
+  origin:
+    x: -4567
+    y: 65
+    z: 3834
+  destination:
+    x: -10783
+    y: 26
+    z: 1496
+  color: ""
+
+- name: Moon SE Plymouth
+  desc: "Ladder on both sides"
+  origin:
+    x: 728
+    y: 113
+    z: 1540
+  destination:
+    x: 306
+    y: 44
+    z: -4408
+  color: ""
