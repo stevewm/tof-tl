@@ -2,5 +2,5 @@
 python.uv_venv_auto = true
 
 [tools]
-ruff = "0.14.10"
+ruff = "0.14.11"
 uv = "0.9.24"
