@@ -654,3 +654,111 @@
     y: 44
     z: -4408
   color: ""
+
+- name: Coven TL 1
+  desc: ""
+  origin:
+    x: 100
+    y: 111
+    z: 4122
+  destination:
+    x: -4605
+    y: 92
+    z: 11144
+  color: ""
+
+- name: Coven TL 2
+  desc: ""
+  origin:
+    x: 214
+    y: 94
+    z: 4604
+  destination:
+    x: -5821
+    y: 13
+    z: 8166
+  color: ""
+
+- name: Coven TL 2a
+  desc: ""
+  origin:
+    x: -5875
+    y: 14
+    z: 8224
+  destination:
+    x: -2245
+    y: 16
+    z: 799
+  color: ""
+
+- name: Coven TL 2b
+  desc: ""
+  origin:
+    x: -2351
+    y: 25
+    z: 810
+  destination:
+    x: -8475
+    y: 83
+    z: -3766
+  color: ""
+
+- name: Argilita NE 1
+  desc: ""
+  origin:
+    x:-787
+    y:127
+    z:1350
+  destination:
+    x:-1651
+    y:22
+    z:7027
+  color: "#FF7F00"
+
+- name: Argilita NE 1-1
+  desc: ""
+  origin:
+    x:-2220
+    y:122
+    z:7807
+  destination:
+    x:-4281
+    y:84
+    z:14854
+  color: "#FF7F00"
+
+- name: Argilita NE 1-2
+  desc: ""
+  origin:
+    x:-2982
+    y:54
+    z:7195
+  destination:
+    x:-9745
+    y:34
+    z:13218
+  color: "#FF7F00"
+
+- name: Argilita NW 1
+  desc: ""
+  origin:
+    x:-967
+    y:123
+    z:1356
+  destination:
+    x:1460
+    y:12
+    z:-3865
+  color: "#FF7F00"
+
+- name: Argilita NW 1-1
+  desc: ""
+  origin:
+    x:667
+    y:69
+    z:-4542
+  destination:
+    x:-2003
+    y:66
+    z:-3960
+  color: "#FF7F00"

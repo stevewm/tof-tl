@@ -143,3 +143,9 @@
     x: 375
     y: 112
     z: 3931
+
+- name: Sandsreach
+  location:
+    x: 3558
+    y: 113
+    z: 3608
