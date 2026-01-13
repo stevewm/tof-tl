@@ -30,7 +30,7 @@
     y: 80
     z: 3766
 
-- name: Port of New Hope
+- name: Port Dòchas Ùr
   location:
     x: -2927
     y: 118
@@ -149,3 +149,9 @@
     x: 3558
     y: 113
     z: 3608
+
+- name: Dúnfort Solraegh
+  location:
+    x: 19480
+    y: 110
+    z: 15786
