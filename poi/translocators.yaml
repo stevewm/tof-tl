@@ -142,6 +142,18 @@
     z: 1862
   color: ""
 
+- name: Aldermere NE
+  desc: ""
+  origin:
+    x: -1295
+    y: 87
+    z: -962
+  destination:
+    x: 2602
+    y: 66
+    z: -752
+  color: ""
+
 - name: Me-mow TL 1
   desc:
   origin:
@@ -512,6 +524,30 @@
     x: 15447
     y: 12
     z: 5939
+  color: "#0000B4"
+
+- name: bmc TL 26
+  desc: ""
+  origin:
+    x: 2481
+    y: 56
+    z: -733
+  destination:
+    x: 1695
+    y: 16
+    z: 6023
+  color: "#0000B4"
+
+- name: bmc TL 27
+  desc: ""
+  origin:
+    x: 2556
+    y: 76
+    z: -792
+  destination:
+    x: 5134
+    y: 94
+    z: 1266
   color: "#0000B4"
 
 - name: Akyrus TL 1
