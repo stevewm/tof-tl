@@ -154,6 +154,30 @@
     z: -752
   color: ""
 
+- name: Aldermere SW
+  desc: ""
+  origin:
+    x: -1460
+    y: 102
+    z: -733
+  destination:
+    x: -191
+    y: 34
+    z: 573
+  color: ""
+
+- name: Aldermere SW 2
+  desc: ""
+  origin:
+    x: -1462
+    y: 71
+    z: -749
+  destination:
+    x: -6971
+    y: 12
+    z: 2068
+  color: ""
+
 - name: Me-mow TL 1
   desc:
   origin:
@@ -550,6 +574,30 @@
     z: 1266
   color: "#0000B4"
 
+- name: bmc TL 29
+  desc: ""
+  origin:
+    x: -7792
+    y: 76
+    z: 15290
+  destination:
+    x: -8592
+    y: 122
+    z: 22611
+  color: "0,0,180"
+
+- name: bmc TL 30
+  desc: ""
+  origin:
+    x: -7478
+    y: 115
+    z: 17039
+  destination:
+    x: -3812
+    y: 44
+    z: 21755
+  color: "#0000B4"
+
 - name: Akyrus TL 1
   desc: ""
   origin:
@@ -798,3 +846,75 @@
     y: 66
     z: -3960
   color: "#FF7F00"
+
+- name: EaterofTitan 1
+  desc: ""
+  origin:
+    x: 18979
+    y: 108
+    z: 14586
+  destination:
+    x: 16647
+    y: 32
+    z: 21134
+  color: ""
+
+- name: EaterofTitan 2
+  desc: ""
+  origin:
+    x: 18367
+    y: 89
+    z: 18532
+  destination:
+    x: 15978
+    y: 38
+    z: 19660
+  color: ""
+
+- name: EaterofTitan 3
+  desc: ""
+  origin:
+    x: 18519
+    y: 92
+    z: 18596
+  destination:
+    x: 25096
+    y: 12
+    z: 25972
+  color: ""
+
+- name: EaterofTitan 4
+  desc: ""
+  origin:
+    x: 19796
+    y: 241
+    z: 16826
+  destination:
+    x: 23151
+    y: 65
+    z: 11841
+  color: ""
+
+- name: EaterofTitan 5
+  desc: ""
+  origin:
+    x: 20550
+    y: 112
+    z: 14948
+  destination:
+    x: 22726
+    y: 46
+    z: 10684
+  color: ""
+
+- name: EaterofTitan 6
+  desc: ""
+  origin:
+    x: 19343
+    y: 103
+    z: 6794
+  destination:
+    x: 23048
+    y: 80
+    z: 11835
+  color: ""
