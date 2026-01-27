@@ -598,6 +598,30 @@
     z: 21755
   color: "#0000B4"
 
+- name: bmc TL 31
+  desc: ""
+  origin:
+    x: -6633
+    y: 73
+    z: 17854
+  destination:
+    x: -7922
+    y: 84
+    z: 21043
+  color: "#0000B4"
+
+- name: bmc TL 32
+  desc: ""
+  origin:
+    x: -6606
+    y: 62
+    z: 17883
+  destination:
+    x: -8117
+    y: 13
+    z: 21974
+  color: "#0000B4"
+
 - name: Akyrus TL 1
   desc: ""
   origin:

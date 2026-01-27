@@ -155,3 +155,9 @@
     x: 19480
     y: 110
     z: 15786
+
+- name: Crow's Nest
+  location:
+    x: -3992
+    y: 117
+    z: -1713
